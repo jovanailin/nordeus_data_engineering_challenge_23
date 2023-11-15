@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project provides a REST API to process and query data related to user and game statistics. The API is built using Flask and deployed on Heroku.
+As part of the Nordeus Data Engineering Challenge, this project brings together an ETL notebook, API implementation, and a REST API. The ETL notebook efficiently processes data for use in the API, which interacts with a PostgreSQL database to ensure quick and precise data access. Hosted on Heroku, the REST API features endpoints for detailed user and game statistics. This setup ensures a seamless flow from data processing to end-user accessibility.
 
 ### Data Preprocessing
 

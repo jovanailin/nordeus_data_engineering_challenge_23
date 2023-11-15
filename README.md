@@ -11,6 +11,13 @@ This project provides a REST API to process and query data related to user and g
 - Key operations in the transformation include normalization of nested JSON structures and the segregation of data into distinct categories for detailed analysis.
 - The cleaned and structured data is then loaded into a PostgreSQL database, which the API queries.
 
+### API Implementation Details
+- The API, housed in the `/API` directory of the repository, is built using Flask. It serves as the interface for querying the processed data. The implementation details are as follows:
+- Structure: The API codebase is organized in the /API directory, which contains all necessary Flask routes and database interaction logic.
+- Functionality: It features two main routes `(/user_stats and /game_stats)` that allow users to fetch detailed user and game statistics.
+- Database Integration: The API interacts with a PostgreSQL database, querying data that has been pre-processed and stored, ensuring efficient data retrieval.
+- Deployment: Deployed on Heroku, the API is accessible for real-time data querying and can handle requests with various parameters.
+
 ### API Endpoints
 
 #### User Statistics

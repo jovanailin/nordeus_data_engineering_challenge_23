@@ -5,6 +5,7 @@ from utils import count_sessions, calculate_time_spent
 
 app = Flask(__name__)
 
+
 @app.route('/user_stats', methods=['GET'])
 def user_stats():
     user_id = request.args.get('user_id')
@@ -131,36 +132,40 @@ def game_stats():
                 {base_query}
                 {where_clause}
             """)
+
             financial_stats_result = cursor.fetchone()
             financial_stats = {'total_revenue': financial_stats_result[0], 'paid_users': financial_stats_result[1]}
 
             # Average numbers of sessions
             cursor.execute(f"""
                 SELECT AVG(session_count) FROM
-                    (SELECT user_id, COUNT(*) as session_count FROM
-                        user_activity
-                        WHERE event_type = 'login'
-                        GROUP BY user_id) as user_sessions
+                    (SELECT ua.user_id, COUNT(*) as session_count 
+                         {base_query}
+                         {where_clause} AND ua.event_type = 'login'
+                        GROUP BY ua.user_id) as user_sessions
                     WHERE session_count > 0""")
 
-
             avg_sessions_result = cursor.fetchall()
-            avg_sessions = {'avg_sessions': float(avg_sessions_result[0][0])}
+            if avg_sessions_result:
+                avg_sessions = {
+                    'avg_sessions': float(avg_sessions_result[0][0]) if avg_sessions_result[0][0] is not None else 0}
+            else:
+                avg_sessions = {'avg_sessions': 0}
 
             # Averagime total time spent in game
-            cursor.execute("SELECT event_timestamp, event_type FROM user_activity")
+            cursor.execute(f"SELECT ua.event_timestamp, ua.event_type {base_query} {where_clause}")
             events = cursor.fetchall()
 
             total_time_spent = calculate_time_spent(events)
 
-            cursor.execute("SELECT user_id FROM user_activity")
-            users = cursor.fetchall()[0]
+            cursor.execute(f"SELECT ua.user_id {base_query} {where_clause}")
 
-            user_count = len(users)
+            users = cursor.fetchall()
+            user_count = len(users) if users else 0
 
             # Calculate average time spent
             average_time_result = total_time_spent / user_count if user_count > 0 else 0
-            average_time = {"average_time_spent_in_game: " : average_time_result}
+            average_time = {"average_time_spent_in_game: ": average_time_result}
             # Combine results
             stats = {**daily_stats, **financial_stats, **avg_sessions, **average_time}
 
@@ -171,5 +176,6 @@ def game_stats():
 
     return jsonify(stats)
 
-if __name__ == '__main__':
+
+if __name__ == '__app__':
     app.run()

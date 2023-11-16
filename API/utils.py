@@ -42,8 +42,9 @@ def calculate_time_spent(events):
             session_start = timestamp
         elif event_type == 'logout' and session_start:
             session_end = timestamp
-            session_duration = session_end - session_start
-            total_time += session_duration
-            session_start = None
+            if session_end > session_start:
+                session_duration = session_end - session_start
+                total_time += session_duration
+                session_start = None
 
     return total_time

@@ -12,14 +12,15 @@ def count_sessions(events):
     int: Number of sessions for a given user
     """
     session_count = 0
-    login_found = False
+    session_start = None
 
     for timestamp, event_type in events:
-        if event_type == 'login' and not login_found:
-            login_found = True
-        elif event_type == 'logout' and login_found:
-            session_count += 1
-            login_found = False
+        if event_type == 'login':
+            session_start = timestamp
+        elif event_type == 'logout' and session_start:
+            if timestamp - session_start >= 1:  # Check if the session lasted at least 1 second
+                session_count += 1
+            session_start = None
 
     return session_count
 

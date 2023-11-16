@@ -38,7 +38,7 @@ As part of the Nordeus Data Engineering Challenge, this project brings together 
 - Description: Retrieves game-related statistics. Filters by date and/or country if provided.
 
 #### How to Use
-- API is live at: (https://shielded-lake-74666.herokuapp.com/)
+- API is live at: ([https://shielded-lake-74666.herokuapp.com](https://shielded-lake-74666-8d82a0ff0b7b.herokuapp.com/)/)
 - Make GET requests to the endpoints with the required parameters.
 
 #### Local Setup

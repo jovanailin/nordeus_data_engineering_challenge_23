@@ -14,7 +14,7 @@ As part of the Nordeus Data Engineering Challenge, this project brings together 
 ### API Implementation Details
 - The API, housed in the `/API` directory of the repository, is built using Flask. It serves as the interface for querying the processed data. The implementation details are as follows:
 - Structure: The API codebase is organized in the /API directory, which contains all necessary Flask routes and database interaction logic.
-- Functionality: It features two main routes `(/user_stats and /game_stats)` that allow users to fetch detailed user and game statistics.
+- Functionality: It features two main routes `(/user_stats` and `/game_stats)` that allow users to fetch detailed user and game statistics.
 - Database Integration: The API interacts with a PostgreSQL database, querying data that has been pre-processed and stored, ensuring efficient data retrieval.
 - Deployment: Deployed on Heroku, the API is accessible for real-time data querying and can handle requests with various parameters.
 
